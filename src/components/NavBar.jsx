@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import SearchBar from './SearchBar';
 
-function NavBar() {
+function NavBar({ onSearch }) {
   return (
     <nav>
       <ul>
@@ -9,7 +10,7 @@ function NavBar() {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/breweries">Breweries</Link>
+          <SearchBar onSearch={onSearch} />
         </li>
       </ul>
     </nav>

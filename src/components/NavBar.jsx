@@ -10,6 +10,9 @@ function NavBar({ onSearch }) {
           <Link to="/">Home</Link>
         </li>
         <li>
+          <Link to="/breweries">Breweries</Link>
+        </li>
+        <li>
           <SearchBar onSearch={onSearch} />
         </li>
       </ul>

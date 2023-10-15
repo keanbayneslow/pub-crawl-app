@@ -1,16 +1,12 @@
-const openBreweryBaseUrl = 'https://api.openbrewerydb.org/v1';
+const apiUrl = 'http://localhost:3001/breweries'; // Update the URL to match your local JSON Server's endpoint
 
-export async function fetchBreweriesByCountry(country) {
-  try {
-    const response = await fetch(`${openBreweryBaseUrl}/breweries?by_country=${country}`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch breweries by country');
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error fetching breweries by country:', error);
-    throw error;
-  }
-}
+fetch(apiUrl)
+  .then((response) => response.json())
+  .then((data) => {
+    // Process the data here
+    console.log(data); // You can replace this with your data handling logic
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 

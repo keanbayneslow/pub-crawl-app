@@ -3,12 +3,13 @@ import React, { useState, useEffect } from "react";
 const SearchBar = () => {
   const [breweries, setBreweries] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+
   useEffect(() => {
     const fetchBreweries = async () => {
       try {
         if (searchTerm) {
           const response = await fetch(
-            `https://api.openbrewerydb.org/v1/breweries/search?query=${searchTerm}`
+            `http://localhost:3001/breweries?search=${searchTerm}`
           );
           if (response.ok) {
             const data = await response.json();
@@ -16,9 +17,10 @@ const SearchBar = () => {
           }
         }
       } catch (error) {
-        console.error('Error fetching breweries:', error);
+        console.error("Error fetching breweries:", error);
       }
     };
+
     fetchBreweries();
   }, [searchTerm]);
 
@@ -33,7 +35,12 @@ const SearchBar = () => {
       />
       <ul>
         {breweries.map((brewery) => (
-          <li key={brewery.id}>{brewery.name}</li>
+          <li
+            key={brewery.id}
+            onClick={() => setSearchTerm(brewery.name)}
+          >
+            {brewery.name}
+          </li>
         ))}
       </ul>
     </div>

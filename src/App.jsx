@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NavBar from './components/NavBar'; 
 import LandingPage from './components/LandingPage';
 import BreweriesList from './components/BreweriesList'
+import Favourites from './components/Favourites';
 import './App.css';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/breweries" element={<BreweriesList />} />
+            <Route path="/favourites" element={<Favourites />} />
           </Routes>
         </BrowserRouter>
       </header>

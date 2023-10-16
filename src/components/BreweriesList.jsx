@@ -31,7 +31,6 @@ const BreweriesList = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        // You can update your state here if needed
       })
       .catch((error) => {
         console.error('Error deleting brewery:', error);

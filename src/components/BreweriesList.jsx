@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/BreweriesList.css';
 
 const BreweriesList = () => {
   const [breweries, setBreweries] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(''); // Initialize with an empty string
+  const [selectedCountry, setSelectedCountry] = useState('');
 
   useEffect(() => {
     console.log("Fetching data...");
@@ -25,13 +26,12 @@ const BreweriesList = () => {
     setSelectedCountry(event.target.value);
   };
 
-  // Filter the breweries based on the selectedCountry
   const filteredBreweries = selectedCountry
     ? breweries.filter((brewery) => brewery.country === selectedCountry)
     : breweries;
 
   return (
-    <div>
+    <div className="breweries-list">
       <h1>Breweries List</h1>
       <label>
         Select a Country:
@@ -44,9 +44,9 @@ const BreweriesList = () => {
           ))}
         </select>
       </label>
-      <ul>
+      <ul className="breweries">
         {filteredBreweries.map((brewery) => (
-          <li key={brewery.id}>
+          <li key={brewery.id} className="brewery">
             <h2>{brewery.name}</h2>
             <p>Type: {brewery.brewery_type}</p>
             <p>Address: {brewery.address_1}</p>
@@ -54,8 +54,6 @@ const BreweriesList = () => {
             <p>State: {brewery.state_province}</p>
             <p>Postal Code: {brewery.postal_code}</p>
             <p>Country: {brewery.country}</p>
-            <p>Phone: {brewery.phone}</p>
-            {brewery.website_url && <a href={brewery.website_url}>Website</a>}
           </li>
         ))}
       </ul>
@@ -64,3 +62,9 @@ const BreweriesList = () => {
 };
 
 export default BreweriesList;
+
+
+
+
+
+

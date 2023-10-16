@@ -1,0 +1,62 @@
+.breweries-list {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  ul {
+    list-style: none;
+    margin-left: 16px;
+  }
+  
+  li {
+    display: inline-block;
+    margin-right: 8px;
+  }
+  
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+  
+  .breweries {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  
+  .brewery {
+    padding: 16px;
+    background-color: #f8f8f8; 
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  p {
+    margin-bottom: 4px;
+  }

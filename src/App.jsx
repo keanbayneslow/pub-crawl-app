@@ -4,6 +4,7 @@ import NavBar from './components/NavBar';
 import LandingPage from './components/LandingPage';
 import BreweriesList from './components/BreweriesList'
 import Favourites from './components/Favourites';
+import AddBreweriesForm from './components/AddBreweryForm';
 import './App.css';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/breweries" element={<BreweriesList />} />
             <Route path="/favourites" element={<Favourites />} />
+            <Route path="/addbreweries" element={<AddBreweriesForm />} />
           </Routes>
         </BrowserRouter>
       </header>

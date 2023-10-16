@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/BreweriesList.css';
 
+
 const BreweriesList = () => {
   const [breweries, setBreweries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('');
@@ -36,6 +37,8 @@ const BreweriesList = () => {
         console.error('Error deleting brewery:', error);
       });
   };
+
+
 
   useEffect(() => {
     console.log("Fetching data...");

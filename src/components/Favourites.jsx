@@ -29,7 +29,7 @@ const Favourites = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        // After successful deletion, refresh the list of favorite breweries
+        // After successful deletion, refresh the list of favourite breweries
         return fetch('http://localhost:3001/favourites');
       })
       .then((response) => response.json())

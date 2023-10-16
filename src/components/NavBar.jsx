@@ -16,6 +16,9 @@ function NavBar({ onSearch }) {
           <Link to="/favourites">Favourites</Link>
         </li>
         <li>
+          <Link to="/addbreweries">Add a Brewery</Link>
+        </li>
+        <li>
           <SearchBar onSearch={onSearch} />
         </li>
       </ul>

@@ -5,6 +5,39 @@ const BreweriesList = () => {
   const [breweries, setBreweries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('');
 
+  const addBreweryToFavourites = (brewery) => {
+    fetch('http://localhost:3001/favourites', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(brewery),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+      })
+      .catch((error) => {
+        console.error('Error adding brewery:', error);
+      });
+  };
+  
+  const deleteBreweryFromFavourites = (breweryId) => {
+    fetch(`http://localhost:3001/favourites/${breweryId}`, {
+      method: 'DELETE',
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        // You can update your state here if needed
+      })
+      .catch((error) => {
+        console.error('Error deleting brewery:', error);
+      });
+  };
+
   useEffect(() => {
     console.log("Fetching data...");
     fetch('http://localhost:3001/breweries')
@@ -45,17 +78,19 @@ const BreweriesList = () => {
         </select>
       </label>
       <ul className="breweries">
-        {filteredBreweries.map((brewery) => (
-          <li key={brewery.id} className="brewery">
-            <h2>{brewery.name}</h2>
-            <p>Type: {brewery.brewery_type}</p>
-            <p>Address: {brewery.address_1}</p>
-            <p>City: {brewery.city}</p>
-            <p>State: {brewery.state_province}</p>
-            <p>Postal Code: {brewery.postal_code}</p>
-            <p>Country: {brewery.country}</p>
-          </li>
-        ))}
+      {filteredBreweries.map((brewery) => (
+  <li key={brewery.id} className="brewery">
+    <h2>{brewery.name}</h2>
+    <p>Type: {brewery.brewery_type}</p>
+    <p>Address: {brewery.address_1}</p>
+    <p>City: {brewery.city}</p>
+    <p>State: {brewery.state_province}</p>
+    <p>Postal Code: {brewery.postal_code}</p>
+    <p>Country: {brewery.country}</p>
+    <button onClick={() => addBreweryToFavourites(brewery)}>Add to Favourites</button>
+    <button onClick={() => deleteBreweryFromFavourites(brewery.id)}>Remove from Favourites</button>
+  </li>
+))}
       </ul>
     </div>
   );

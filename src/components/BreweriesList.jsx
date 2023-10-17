@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/BreweriesList.css';
 
-
 const BreweriesList = () => {
   const [breweries, setBreweries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('');
+  const [favouriteBreweries, setFavouriteBreweries] = useState([]);
 
   const addBreweryToFavourites = (brewery) => {
+    setFavouriteBreweries([...favouriteBreweries, brewery]);
+    // Send a POST request to add the brewery to favourites on the server
     fetch('http://localhost:3001/favourites', {
       method: 'POST',
       headers: {
@@ -23,8 +25,10 @@ const BreweriesList = () => {
         console.error('Error adding brewery:', error);
       });
   };
-  
+
   const deleteBreweryFromFavourites = (breweryId) => {
+    setFavouriteBreweries(favouriteBreweries.filter((brewery) => brewery.id !== breweryId));
+    // Send a DELETE request to remove the brewery from favourites on the server
     fetch(`http://localhost:3001/favourites/${breweryId}`, {
       method: 'DELETE',
     })
@@ -38,10 +42,8 @@ const BreweriesList = () => {
       });
   };
 
-
-
   useEffect(() => {
-    console.log("Fetching data...");
+    console.log('Fetching data...');
     fetch('http://localhost:3001/breweries')
       .then((response) => {
         if (!response.ok) {
@@ -80,25 +82,35 @@ const BreweriesList = () => {
         </select>
       </label>
       <ul className="breweries">
-      {filteredBreweries.map((brewery) => (
-  <li key={brewery.id} className="brewery">
-    <h2>{brewery.name}</h2>
-    <p>Type: {brewery.brewery_type}</p>
-    <p>Address: {brewery.address_1}</p>
-    <p>City: {brewery.city}</p>
-    <p>State: {brewery.state_province}</p>
-    <p>Postal Code: {brewery.postal_code}</p>
-    <p>Country: {brewery.country}</p>
-    <button onClick={() => addBreweryToFavourites(brewery)}>Add to Favourites</button>
-    <button onClick={() => deleteBreweryFromFavourites(brewery.id)}>Remove from Favourites</button>
-  </li>
-))}
+        {filteredBreweries.map((brewery) => (
+          <li
+            key={brewery.id}
+            className={`brewery ${favouriteBreweries.includes(brewery) ? 'favourite' : ''}`}
+          >
+            <h2>{brewery.name}</h2>
+            <p>Type: {brewery.brewery_type}</p>
+            <p>Address: {brewery.address_1}</p>
+            <p>City: {brewery.city}</p>
+            <p>State: {brewery.state_province}</p>
+            <p>Postal Code: {brewery.postal_code}</p>
+            <p>Country: {brewery.country}</p>
+            <button onClick={() => addBreweryToFavourites(brewery)}>Add to Favourites</button>
+            <button onClick={() => deleteBreweryFromFavourites(brewery.id)}>Remove from Favourites</button>
+          </li>
+        ))}
       </ul>
     </div>
   );
 };
 
 export default BreweriesList;
+
+
+
+
+
+
+
 
 
 

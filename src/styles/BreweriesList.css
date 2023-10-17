@@ -60,3 +60,7 @@
   p {
     margin-bottom: 4px;
   }
+
+  .favourite {
+    background-color: aquamarine;
+  }

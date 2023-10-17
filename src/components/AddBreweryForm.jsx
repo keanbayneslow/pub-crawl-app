@@ -1,109 +1,61 @@
-import React, { useState } from 'react';
-import '../styles/AddBreweryForm.css'
+import React, { useState, useEffect } from 'react';
+import BreweryModal from './BreweryModal'; 
+import '../styles/AddBreweryForm.css';
 
 const AddBreweriesForm = ({ onBreweryAdded }) => {
-  const [breweryData, setBreweryData] = useState({
-    name: '',
-    brewery_type: '',
-    address_1: '',
-    city: '',
-    state_province: '',
-    postal_code: '',
-    country: '',
-  });
+  const [userAddedBreweries, setUserAddedBreweries] = useState([]);
+  const [isModalOpen, setModalOpen] = useState(false);
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setBreweryData({ ...breweryData, [name]: value });
-  };
+  useEffect(() => {
+    const savedBreweries = JSON.parse(localStorage.getItem('userAddedBreweries')) || [];
+    setUserAddedBreweries(savedBreweries);
+  }, []);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  // Save data to local storage when userAddedBreweries changes
+  useEffect(() => {
+    localStorage.setItem('userAddedBreweries', JSON.stringify(userAddedBreweries));
+  }, [userAddedBreweries]);
 
-    // Send a POST request to the server to add the new brewery
-    fetch('http://localhost:3001/breweries', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(breweryData),
+  const handleDelete = (breweryId) => {
+    // Send a DELETE request to remove the brewery
+    fetch(`http://localhost:3001/breweries/${breweryId}`, {
+      method: 'DELETE',
     })
-      .then((newBrewery) => {
-  newBrewery.isUserAdded = true; // Mark the brewery as user-added
-  onBreweryAdded(newBrewery);
-  setBreweryData({
-    name: '',
-    brewery_type: '',
-    address_1: '',
-    city: '',
-    state_province: '',
-    postal_code: '',
-    country: '',
-  });
-})
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        // Remove the deleted brewery from userAddedBreweries
+        setUserAddedBreweries(userAddedBreweries.filter((brewery) => brewery.id !== breweryId));
+      })
       .catch((error) => {
-        console.error('Error adding brewery:', error);
+        console.error('Error deleting brewery:', error);
       });
   };
 
   return (
     <div>
       <h2>Add a Brewery</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={breweryData.name}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="brewery_type"
-          placeholder="Brewery Type"
-          value={breweryData.brewery_type}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="address_1"
-          placeholder="Address"
-          value={breweryData.address_1}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="city"
-          placeholder="City"
-          value={breweryData.city}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="state_province"
-          placeholder="State/Province"
-          value={breweryData.state_province}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="postal_code"
-          placeholder="Postal Code"
-          value={breweryData.postal_code}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="country"
-          placeholder="Country"
-          value={breweryData.country}
-          onChange={handleChange}
-        />
-        <button type="submit">Submit</button>
-      </form>
-      
+      <button onClick={() => setModalOpen(true)}>Add Brewery</button>
+      <BreweryModal
+        isModalOpen={isModalOpen}
+        setModalOpen={setModalOpen}
+        userAddedBreweries={userAddedBreweries}
+        setUserAddedBreweries={setUserAddedBreweries}
+      />
+
+      <div>
+        <h3>Added Breweries</h3>
+        <ul>
+          {userAddedBreweries.map((brewery) => (
+            <li key={brewery.id}>
+              {brewery.name} ({brewery.country})
+              <button onClick={() => handleDelete(brewery.id)}>Delete</button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
-    
   );
 };
 

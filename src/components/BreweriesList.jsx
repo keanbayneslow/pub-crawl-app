@@ -5,9 +5,12 @@ const BreweriesList = () => {
   const [breweries, setBreweries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('');
   const [favouriteBreweries, setFavouriteBreweries] = useState([]);
+  const [addedToFavourites, setAddedToFavourites] = useState({});
 
   const addBreweryToFavourites = (brewery) => {
     setFavouriteBreweries([...favouriteBreweries, brewery]);
+    setAddedToFavourites({ ...addedToFavourites, [brewery.id]: true });
+
     // Send a POST request to add the brewery to favourites on the server
     fetch('http://localhost:3001/favourites', {
       method: 'POST',
@@ -28,6 +31,8 @@ const BreweriesList = () => {
 
   const deleteBreweryFromFavourites = (breweryId) => {
     setFavouriteBreweries(favouriteBreweries.filter((brewery) => brewery.id !== breweryId));
+    setAddedToFavourites({ ...addedToFavourites, [breweryId]: false });
+
     // Send a DELETE request to remove the brewery from favourites on the server
     fetch(`http://localhost:3001/favourites/${breweryId}`, {
       method: 'DELETE',
@@ -94,8 +99,22 @@ const BreweriesList = () => {
             <p>State: {brewery.state_province}</p>
             <p>Postal Code: {brewery.postal_code}</p>
             <p>Country: {brewery.country}</p>
-            <button onClick={() => addBreweryToFavourites(brewery)}>Add to Favourites</button>
-            <button onClick={() => deleteBreweryFromFavourites(brewery.id)}>Remove from Favourites</button>
+            <button
+              onClick={() => {
+                addBreweryToFavourites(brewery);
+              }}
+            >
+              Add to Favourites
+            </button>
+            {addedToFavourites[brewery.id] && (
+              <button
+                onClick={() => {
+                  deleteBreweryFromFavourites(brewery.id);
+                }}
+              >
+                Remove from Favourites
+              </button>
+            )}
           </li>
         ))}
       </ul>

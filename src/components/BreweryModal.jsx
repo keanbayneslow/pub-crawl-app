@@ -10,6 +10,7 @@ function BreweryModal({ isModalOpen, setModalOpen, userAddedBreweries, setUserAd
     state_province: '',
     postal_code: '',
     country: '',
+    isUserAdded: true,
   });
 
   const handleChange = (event) => {
@@ -35,37 +36,11 @@ function BreweryModal({ isModalOpen, setModalOpen, userAddedBreweries, setUserAd
         return response.json();
       })
       .then((newBrewery) => {
-        // Add the brewery to /userAddedBreweries
-        fetch('http://localhost:3001/userAddedBreweries', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(breweryData),
-        })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then((newUserAddedBrewery) => {
-            newBrewery.isUserAdded = true; // Mark the brewery as user-added
-            setUserAddedBreweries([...userAddedBreweries, newUserAddedBrewery]);
-            setBreweryData({
-              name: '',
-              brewery_type: '',
-              address_1: '',
-              city: '',
-              state_province: '',
-              postal_code: '',
-              country: '',
-            });
-            setModalOpen(false); // Close the modal
-          })
-          .catch((error) => {
-            console.error('Error adding brewery to /userAddedBreweries:', error);
-          });
+        // Add the new brewery to the userAddedBreweries state
+        setUserAddedBreweries([...userAddedBreweries, newBrewery]);
+
+        // Close the modal
+        setModalOpen(false);
       })
       .catch((error) => {
         console.error('Error adding brewery to /breweries:', error);

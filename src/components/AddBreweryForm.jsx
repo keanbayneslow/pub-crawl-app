@@ -1,52 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import BreweryModal from './BreweryModal';
+import EditBreweryModal from './EditBreweryModal';
 import '../styles/BreweriesList.css';
 
 const AddBreweriesForm = ({ onBreweryAdded }) => {
   const [userAddedBreweries, setUserAddedBreweries] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true); // Loading indicator
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [breweryToEdit, setBreweryToEdit] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch user-added breweries from the server when the component mounts
     fetchUserAddedBreweries();
   }, []);
 
   const fetchUserAddedBreweries = async () => {
     try {
-      const response = await fetch('http://localhost:3001/userAddedBreweries');
+      const response = await fetch('http://localhost:3001/breweries');
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
-      setUserAddedBreweries(data);
-      setIsLoading(false); // Data has been loaded
+      // Filter only the user-added breweries
+      const userAddedBreweries = data.filter((brewery) => brewery.isUserAdded);
+      setUserAddedBreweries(userAddedBreweries);
+      setIsLoading(false);
     } catch (error) {
       console.error('Error fetching user-added breweries:', error);
-      setIsLoading(false); // Set loading to false on error
+      setIsLoading(false);
     }
   };
 
-  const handleDelete = async (breweryId) => {
-    // Add a confirmation dialog before deletion
-    const confirmDeletion = window.confirm('Are you sure you want to delete this brewery?');
-    if (!confirmDeletion) {
-      return;
-    }
+  const handleEdit = (brewery) => {
+    setBreweryToEdit(brewery);
+    setEditModalOpen(true);
+  };
 
-    try {
-      // Send a DELETE request to the server to remove the brewery
-      const response = await fetch(`http://localhost:3001/userAddedBreweries/${breweryId}`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      // Remove the deleted brewery from the userAddedBreweries state
-      setUserAddedBreweries(userAddedBreweries.filter((brewery) => brewery.id !== breweryId));
-    } catch (error) {
-      console.error('Error deleting brewery:', error);
-    }
+  const handleDelete = (breweryId) => {
+  };
+
+  const handleEditBrewery = (updatedBrewery) => {
+
   };
 
   return (
@@ -60,6 +54,12 @@ const AddBreweriesForm = ({ onBreweryAdded }) => {
         setModalOpen={setModalOpen}
         userAddedBreweries={userAddedBreweries}
         setUserAddedBreweries={setUserAddedBreweries}
+      />
+      <EditBreweryModal
+        isOpen={isEditModalOpen}
+        onRequestClose={() => setEditModalOpen(false)}
+        brewery={breweryToEdit}
+        onUpdateBrewery={handleEditBrewery}
       />
 
       <div className="added-breweries">
@@ -75,10 +75,10 @@ const AddBreweriesForm = ({ onBreweryAdded }) => {
                 </p>
                 <p>{brewery.brewery_type}</p>
                 <p>{brewery.address_1}</p>
-                <button
-                  className="delete-button"
-                  onClick={() => handleDelete(brewery.id)}
-                >
+                <button className="edit-button" onClick={() => handleEdit(brewery)}>
+                  Edit
+                </button>
+                <button className="delete-button" onClick={() => handleDelete(brewery.id)}>
                   Delete
                 </button>
               </li>

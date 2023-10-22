@@ -8,7 +8,7 @@
   
   .video-background {
     position: absolute;
-    bottom: 0;
+    bottom: 0%;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -24,7 +24,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.5);
+
   }
   
   .content {
@@ -36,6 +36,4 @@
     justify-content: center;
     text-align: center;
     color: #fff;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 20px;
   }

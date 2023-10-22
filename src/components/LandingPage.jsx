@@ -5,6 +5,7 @@ import '../styles/landingPage.css';
 function LandingPage() {
   return (
     <div className="landing-page">
+  
       <ReactPlayer
         className="video-background"
         url="/assets/videos/beer.mp4"

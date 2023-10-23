@@ -13,7 +13,7 @@ const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      // Make a PUT request to update the brewery
+      // Make a PATCH request to update the brewery
     const response = await fetch(`http://localhost:3001/breweries/${brewery.id}`, {
         method: 'PATCH',
         headers: {
@@ -31,6 +31,8 @@ const handleSubmit = async (event) => {
 
       // Close the modal
     onRequestClose();
+
+    window.location.reload();
 
 
     } catch (error) {

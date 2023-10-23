@@ -69,21 +69,36 @@ const AddBreweriesForm = ({ onBreweryAdded }) => {
           body: JSON.stringify(updatedBrewery),
         }
       );
-
+  
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
+  
+      // Close the edit modal
+      setEditModalOpen(false);
+  
+      // Update the userAddedBreweries state with the latest data
       setUserAddedBreweries((prevBreweries) =>
         prevBreweries.map((brewery) =>
           brewery.id === updatedBrewery.id ? updatedBrewery : brewery
         )
       );
-
-      // Close the edit modal
-      setEditModalOpen(false);
     } catch (error) {
       console.error('Error updating brewery:', error);
+    }
+  };
+
+  const refreshUserAddedBreweries = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/breweries');
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      const userAddedBreweries = data.filter((brewery) => brewery.isUserAdded);
+      setUserAddedBreweries(userAddedBreweries);
+    } catch (error) {
+      console.error('Error fetching user-added breweries:', error);
     }
   };
 
@@ -100,11 +115,12 @@ const AddBreweriesForm = ({ onBreweryAdded }) => {
         setUserAddedBreweries={setUserAddedBreweries}
       />
       <EditBreweryModal
-        isOpen={isEditModalOpen}
-        onRequestClose={() => setEditModalOpen(false)}
-        brewery={breweryToEdit}
-        onUpdateBrewery={handleUpdateBrewery}
-      />
+  isOpen={isEditModalOpen}
+  onRequestClose={() => setEditModalOpen(false)}
+  brewery={breweryToEdit}
+  onUpdateBrewery={handleUpdateBrewery}
+  refreshUserAddedBreweries={refreshUserAddedBreweries}
+/>
 
       <div className="added-breweries">
         <h3 className="h1">Added Breweries</h3>

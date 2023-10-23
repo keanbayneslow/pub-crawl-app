@@ -1,17 +1,41 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 
-const EditBreweryModal = ({ isOpen, onRequestClose, brewery, onUpdateBrewery }) => {
-const [editedBrewery, setEditedBrewery] = useState({ ...brewery });
+function EditBreweryModal({ isOpen, onRequestClose, brewery, onUpdateBrewery }) {
+  const [breweryData, setBreweryData] = useState(brewery || {}); // Initialize with an empty object if brewery is null
 
 const handleChange = (event) => {
     const { name, value } = event.target;
-    setEditedBrewery({ ...editedBrewery, [name]: value });
+    setBreweryData({ ...breweryData, [name]: value });
 };
 
-const handleSubmit = () => {
-    // Handle the update of the editedBrewery
-    onUpdateBrewery(editedBrewery);
+const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      // Make a PUT request to update the brewery
+    const response = await fetch(`http://localhost:3001/breweries/${brewery.id}`, {
+        method: 'PATCH',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+        ...brewery,
+        ...breweryData,
+        }),
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+      // Close the modal
+    onRequestClose();
+
+
+    } catch (error) {
+    console.error('Error updating brewery:', error);
+    }
 };
 
 return (
@@ -26,49 +50,49 @@ return (
         type="text"
         name="name"
         placeholder="Name"
-        value={editedBrewery.name}
+        value={breweryData.name || ''}
         onChange={handleChange}
         />
         <input
         type="text"
         name="brewery_type"
         placeholder="Brewery Type"
-        value={editedBrewery.brewery_type}
+        value={breweryData.brewery_type || ''}
         onChange={handleChange}
         />
         <input
         type="text"
         name="address_1"
         placeholder="Address"
-        value={editedBrewery.address_1}
+        value={breweryData.address_1 || ''}
         onChange={handleChange}
         />
         <input
         type="text"
         name="city"
         placeholder="City"
-        value={editedBrewery.city}
+        value={breweryData.city || ''}
         onChange={handleChange}
         />
         <input
         type="text"
         name="state_province"
         placeholder="State"
-        value={editedBrewery.state_province}
+        value={breweryData.state_province || ''}
         onChange={handleChange}
         />
         <input
         type="text"
         name="postal_code"
         placeholder="Postal Code"
-        value={editedBrewery.postal_code}
+        value={breweryData.postal_code || ''}
         onChange={handleChange}
         />
         <input
         type="text"
         name="country"
         placeholder="Country"
-        value={editedBrewery.country}
+        value={breweryData.country || ''}
         onChange={handleChange}
         />
     
@@ -76,6 +100,6 @@ return (
     </form>
     </Modal>
 );
-};
+}
 
 export default EditBreweryModal;

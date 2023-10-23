@@ -36,11 +36,55 @@ const AddBreweriesForm = ({ onBreweryAdded }) => {
     setEditModalOpen(true);
   };
 
-  const handleDelete = (breweryId) => {
+  const handleDelete = async (breweryId) => {
+    try {
+      // Make a DELETE request to remove the brewery
+      const response = await fetch(`http://localhost:3001/breweries/${breweryId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      // Remove the deleted brewery from the userAddedBreweries state
+      setUserAddedBreweries((prevBreweries) =>
+        prevBreweries.filter((brewery) => brewery.id !== breweryId)
+      );
+    } catch (error) {
+      console.error('Error deleting brewery:', error);
+    }
   };
 
-  const handleEditBrewery = (updatedBrewery) => {
+  const handleUpdateBrewery = async (updatedBrewery) => {
+    try {
+      // Make a PATCH request to update the brewery
+      const response = await fetch(
+        `http://localhost:3001/breweries/${updatedBrewery.id}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedBrewery),
+        }
+      );
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      setUserAddedBreweries((prevBreweries) =>
+        prevBreweries.map((brewery) =>
+          brewery.id === updatedBrewery.id ? updatedBrewery : brewery
+        )
+      );
+
+      // Close the edit modal
+      setEditModalOpen(false);
+    } catch (error) {
+      console.error('Error updating brewery:', error);
+    }
   };
 
   return (
@@ -59,7 +103,7 @@ const AddBreweriesForm = ({ onBreweryAdded }) => {
         isOpen={isEditModalOpen}
         onRequestClose={() => setEditModalOpen(false)}
         brewery={breweryToEdit}
-        onUpdateBrewery={handleEditBrewery}
+        onUpdateBrewery={handleUpdateBrewery}
       />
 
       <div className="added-breweries">

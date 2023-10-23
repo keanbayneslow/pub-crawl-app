@@ -20,6 +20,9 @@ function NavBar({ onSearch }) {
           <Link to="/addbreweries">Add a Brewery</Link>
         </li>
         <li>
+          <Link to="/pubcrawlbuilder">Build a Pub Crawl</Link>
+        </li>
+        <li>
           <SearchBar onSearch={onSearch} />
         </li>
       </ul>

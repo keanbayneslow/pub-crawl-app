@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 
-function BreweryModal({ isModalOpen, setModalOpen, userAddedBreweries, setUserAddedBreweries }) {
+function AddBreweryModal({ isModalOpen, setModalOpen, userAddedBreweries, setUserAddedBreweries }) {
   const [breweryData, setBreweryData] = useState({
     name: '',
     brewery_type: '',
@@ -110,4 +110,4 @@ function BreweryModal({ isModalOpen, setModalOpen, userAddedBreweries, setUserAd
   );
 }
 
-export default BreweryModal;
+export default AddBreweryModal;

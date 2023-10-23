@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import BreweryModal from './BreweryModal';
+import AddBreweryModal from './AddBreweryModal';
 import EditBreweryModal from './EditBreweryModal';
 import '../styles/BreweriesList.css';
 
@@ -108,7 +108,7 @@ const AddBreweriesForm = ({ onBreweryAdded }) => {
       <button className="add-button" onClick={() => setModalOpen(true)}>
         Add Brewery
       </button>
-      <BreweryModal
+      <AddBreweryModal
         isModalOpen={isModalOpen}
         setModalOpen={setModalOpen}
         userAddedBreweries={userAddedBreweries}

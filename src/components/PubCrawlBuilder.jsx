@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PubCrawlModal from './PubCrawlModal';
-import '../styles/PubCrawlBuilder.css'
+import '../styles/BreweriesList.css';
 
 const PubCrawlBuilder = () => {
 const [isModalOpen, setModalOpen] = useState(false);
@@ -106,26 +106,34 @@ const handleBrewerySelection = (legIndex, breweryId) => {
     });
 };
 
-return (
-    <div>
-    <button onClick={() => setModalOpen(true)}>Create New Pub Crawl</button>
-    <ul className="pub-crawl-list">
-      {pubCrawls.map((pubCrawl) => (
-        <li key={pubCrawl.id} className="pub-crawl-item">
-          <strong className="pub-crawl-name">Name: {pubCrawl.name}</strong>
-          <p className="pub-crawl-description">Description: {pubCrawl.description}</p>
+const getBreweryNameById = (breweryId) => {
+    const brewery = breweries.find((b) => b.id === breweryId);
+    return brewery ? brewery.name : 'Brewery not found';
+  };
+  
 
-          <ul className="leg-list">
+return (
+    <div className='brewery-list'>
+        <h1>Your Pub Crawls</h1>
+    <button onClick={() => setModalOpen(true)}>Create New Pub Crawl</button>
+    <ul className="breweries">
+      {pubCrawls.map((pubCrawl) => (
+        <li key={pubCrawl.id} className="brewery">
+          <h2>Name: {pubCrawl.name}</h2>
+          <p>Description: {pubCrawl.description}</p>
+
+          <ul>
             {pubCrawl.legs.map((leg, index) => (
-              <li key={index} className="leg-item">
-                <p>{leg.legName}</p>
-                <p>Brewery ID: {leg.breweryId}</p>
+              <li key={index} className="brewery-leg">
+                <h3>{leg.legName}</h3>
+                <p>Brewery Name: {getBreweryNameById(leg.breweryId)}</p>
               </li>
             ))}
           </ul>
         </li>
       ))}
     </ul>
+
     {isModalOpen && (
         <PubCrawlModal
         isOpen={isModalOpen}
@@ -142,25 +150,6 @@ return (
         />
     )}
 
-    {pubCrawlData.legs.map((leg, index) => (
-        <div key={index}>
-        <p>{leg.legName}</p>
-        <label>Select a Brewery:</label>
-        <select
-            value={leg.breweryId}
-            onChange={(e) => handleBrewerySelection(index, e.target.value)}
-        >
-            <option value="">Select a Brewery</option>
-            {breweries.map((brewery) => (
-            <option key={brewery.id} value={brewery.id}>
-                {brewery.name}
-            </option>
-            ))}
-        </select>
-        </div>
-    ))}
-
-    <button onClick={handleAddLeg}>Add Leg</button>
     </div>
 );
 };

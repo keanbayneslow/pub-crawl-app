@@ -41,7 +41,7 @@
   
   .breweries {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 16px;
   }
   
@@ -50,6 +50,10 @@
     background-color: #f8f8f8; 
     border: 1px solid #ccc;
     border-radius: 4px;
+  }
+
+  .brewery-leg {
+    width: 100%;
   }
 
   

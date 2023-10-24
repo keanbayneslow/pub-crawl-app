@@ -1,4 +1,4 @@
-const apiUrl = 'http://localhost:3001/breweries'; 
+const apiUrl = 'https://pub-crawl-backend-g8ks.onrender.com/breweries'; 
 
 fetch(apiUrl)
   .then((response) => response.json())

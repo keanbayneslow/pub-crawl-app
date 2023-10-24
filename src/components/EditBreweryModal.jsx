@@ -14,7 +14,7 @@ const handleSubmit = async (event) => {
 
     try {
       // Make a PATCH request to update the brewery
-    const response = await fetch(`http://localhost:3001/breweries/${brewery.id}`, {
+    const response = await fetch(`https://pub-crawl-backend-g8ks.onrender.com/breweries/${brewery.id}`, {
         method: 'PATCH',
         headers: {
         'Content-Type': 'application/json',

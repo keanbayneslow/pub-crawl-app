@@ -5,7 +5,7 @@ const Favourites = () => {
   const [favouriteBreweries, setFavouriteBreweries] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3001/favourites')
+    fetch('https://pub-crawl-backend-g8ks.onrender.com/favourites')
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -22,7 +22,7 @@ const Favourites = () => {
 
   const handleDelete = (id) => {
     // Send a DELETE request to remove the brewery with the specified ID
-    fetch(`http://localhost:3001/favourites/${id}`, {
+    fetch(`https://pub-crawl-backend-g8ks.onrender.com/favourites/${id}`, {
       method: 'DELETE',
     })
       .then((response) => {
@@ -30,7 +30,7 @@ const Favourites = () => {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         // After successful deletion, refresh the list of favourite breweries
-        return fetch('http://localhost:3001/favourites');
+        return fetch('https://pub-crawl-backend-g8ks.onrender.com/favourites');
       })
       .then((response) => response.json())
       .then((data) => {

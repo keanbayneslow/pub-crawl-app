@@ -16,7 +16,7 @@ const AddBreweriesForm = ({ onBreweryAdded }) => {
 
   const fetchUserAddedBreweries = async () => {
     try {
-      const response = await fetch('http://localhost:3001/breweries');
+      const response = await fetch('https://pub-crawl-backend-g8ks.onrender.com/breweries');
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -39,7 +39,7 @@ const AddBreweriesForm = ({ onBreweryAdded }) => {
   const handleDelete = async (breweryId) => {
     try {
       // Make a DELETE request to remove the brewery
-      const response = await fetch(`http://localhost:3001/breweries/${breweryId}`, {
+      const response = await fetch(`https://pub-crawl-backend-g8ks.onrender.com/breweries/${breweryId}`, {
         method: 'DELETE',
       });
 
@@ -60,7 +60,7 @@ const AddBreweriesForm = ({ onBreweryAdded }) => {
     try {
       // Make a PATCH request to update the brewery
       const response = await fetch(
-        `http://localhost:3001/breweries/${updatedBrewery.id}`,
+        `https://pub-crawl-backend-g8ks.onrender.com/breweries/${updatedBrewery.id}`,
         {
           method: 'PATCH',
           headers: {
@@ -90,7 +90,7 @@ const AddBreweriesForm = ({ onBreweryAdded }) => {
 
   const refreshUserAddedBreweries = async () => {
     try {
-      const response = await fetch('http://localhost:3001/breweries');
+      const response = await fetch('https://pub-crawl-backend-g8ks.onrender.com/breweries');
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }

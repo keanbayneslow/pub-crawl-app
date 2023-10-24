@@ -23,7 +23,7 @@ const [pubCrawlData, setPubCrawlData] = useState({
 
   const fetchBreweries = async () => {
     try {
-      const response = await fetch('http://localhost:3001/breweries');
+      const response = await fetch('https://pub-crawl-backend-g8ks.onrender.com/breweries');
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -36,7 +36,7 @@ const [pubCrawlData, setPubCrawlData] = useState({
 
   const fetchPubCrawls = async () => {
     try {
-      const response = await fetch('http://localhost:3001/pubCrawl');
+      const response = await fetch('https://pub-crawl-backend-g8ks.onrender.com/pubCrawl');
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -56,7 +56,7 @@ const handleSavePubCrawl = () => {
     };
 
     // Send a POST request to save the new pub crawl to your API
-    fetch('http://localhost:3001/pubCrawl', {
+    fetch('https://pub-crawl-backend-g8ks.onrender.com/pubCrawl', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

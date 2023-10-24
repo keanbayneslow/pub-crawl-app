@@ -12,7 +12,7 @@ const BreweriesList = () => {
     setAddedToFavourites({ ...addedToFavourites, [brewery.id]: true });
 
     // Send a POST request to add the brewery to favourites on the server
-    fetch('http://localhost:3001/favourites', {
+    fetch('https://pub-crawl-backend-g8ks.onrender.com/favourites', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ const BreweriesList = () => {
     setAddedToFavourites({ ...addedToFavourites, [breweryId]: false });
 
     // Send a DELETE request to remove the brewery from favourites on the server
-    fetch(`http://localhost:3001/favourites/${breweryId}`, {
+    fetch(`https://pub-crawl-backend-g8ks.onrender.com/favourites/${breweryId}`, {
       method: 'DELETE',
     })
       .then((response) => {
@@ -49,7 +49,7 @@ const BreweriesList = () => {
 
   useEffect(() => {
     console.log('Fetching data...');
-    fetch('http://localhost:3001/breweries')
+    fetch('https://pub-crawl-backend-g8ks.onrender.com/breweries')
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);

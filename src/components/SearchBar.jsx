@@ -9,7 +9,7 @@ const SearchBar = () => {
       try {
         if (searchTerm) {
           const response = await fetch(
-            `http://localhost:3001/breweries?search=${searchTerm}`
+            `https://pub-crawl-backend-g8ks.onrender.com//breweries?search=${searchTerm}`
           );
           if (response.ok) {
             const data = await response.json();

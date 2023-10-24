@@ -22,7 +22,7 @@ function AddBreweryModal({ isModalOpen, setModalOpen, userAddedBreweries, setUse
     event.preventDefault();
 
     // Add the brewery to /breweries
-    fetch('http://localhost:3001/breweries', {
+    fetch('https://pub-crawl-backend-g8ks.onrender.com/breweries', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -87,7 +87,6 @@ return (
         onChange={handleDescriptionChange}
         placeholder="Give your Pub Crawl a description"
     />
-    <button onClick={handleAddLeg}>Add Leg</button>
     {pubCrawlData.legs.map((leg, index) => (
         <div key={index}>
         <p>{leg.legName}</p>
@@ -105,8 +104,10 @@ return (
         </select>
         </div>
     ))}
+    <button onClick={handleAddLeg}>Add Leg</button>
     <button onClick={handleSavePubCrawl}>Save Pub Crawl</button>
     </Modal>
+    
 );
 };
 

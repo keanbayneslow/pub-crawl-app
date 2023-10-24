@@ -110,6 +110,23 @@ const getBreweryNameById = (breweryId) => {
     const brewery = breweries.find((b) => b.id === breweryId);
     return brewery ? brewery.name : 'Brewery not found';
   };
+
+  const handleDeletePubCrawl = (pubCrawlId) => {
+    // Send a DELETE request to remove the pub crawl by ID
+    fetch(`https://pub-crawl-backend-g8ks.onrender.com/pubCrawl/${pubCrawlId}`, {
+      method: 'DELETE',
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        // Fetch the updated list of pub crawls after deletion
+        return fetchPubCrawls();
+      })
+      .catch((error) => {
+        console.error('Error deleting pub crawl:', error);
+      });
+  };
   
 
 return (
@@ -130,6 +147,7 @@ return (
               </li>
             ))}
           </ul>
+          <button onClick={() => handleDeletePubCrawl(pubCrawl.id)}>Delete</button>
         </li>
       ))}
     </ul>

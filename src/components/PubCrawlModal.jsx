@@ -21,7 +21,7 @@ const handleDescriptionChange = (event) => {
 const handleAddLeg = () => {
     const newLeg = {
     legName: `Leg ${currentLeg}`,
-    breweryId: '', // Initialize with an empty brewery ID
+    breweryId: '', // Initialise with an empty brewery ID
     };
     setPubCrawlData({ ...pubCrawlData, legs: [...pubCrawlData.legs, newLeg] });
     setCurrentLeg(currentLeg + 1);
@@ -87,6 +87,7 @@ return (
         onChange={handleDescriptionChange}
         placeholder="Give your Pub Crawl a description"
     />
+
     {pubCrawlData.legs.map((leg, index) => (
         <div key={index}>
         <p>{leg.legName}</p>

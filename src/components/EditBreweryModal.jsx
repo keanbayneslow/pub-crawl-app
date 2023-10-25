@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 
 function EditBreweryModal({ isOpen, onRequestClose, brewery, onUpdateBrewery }) {
-  const [breweryData, setBreweryData] = useState(brewery || {}); // Initialize with an empty object if brewery is null
+  const [breweryData, setBreweryData] = useState(brewery || {}); // Initialise with an empty object if brewery is null
 
 const handleChange = (event) => {
     const { name, value } = event.target;

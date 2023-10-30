@@ -113,8 +113,8 @@ return (
         </select>
         </div>
     ))}
-    <button onClick={handleAddLeg}>Add Leg</button>
-    <button onClick={handleSavePubCrawl}>Save Pub Crawl</button>
+    <button className="edit-button" onClick={handleAddLeg}>Add Leg</button>
+    <button className="edit-button" onClick={handleSavePubCrawl}>Save Pub Crawl</button>
     </Modal>
     
 );

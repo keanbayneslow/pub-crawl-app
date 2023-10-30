@@ -78,11 +78,11 @@ const EditPubCrawlModal = ({ isOpen, onRequestClose, pubCrawl, onSaveEdit, onDel
               </option>
             ))}
           </select>
-          <button onClick={() => onDeleteLeg(editedPubCrawl, legIndex)}>Delete Leg</button>
+          <button className="edit-button" onClick={() => onDeleteLeg(editedPubCrawl, legIndex)}>Delete Leg</button>
         </div>
       ))}
-      <button onClick={handleAddLeg}>Add Leg</button>
-      <button onClick={handleSaveEdit}>Save Edit</button>
+      <button className="edit-button" onClick={handleAddLeg}>Add Leg</button>
+      <button className="edit-button" onClick={handleSaveEdit}>Save Edit</button>
     </Modal>
   );
 };

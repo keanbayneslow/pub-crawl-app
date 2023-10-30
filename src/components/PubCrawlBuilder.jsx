@@ -212,8 +212,8 @@ return (
             </li>
           ))}
         </ul>
-        <button onClick={() => handleDeletePubCrawl(pubCrawl.id)}>Delete Pub Crawl</button>
-        <button onClick={() => openEditModal(pubCrawl)}>Edit Pub Crawl</button>
+        <button className="edit-button" onClick={() => handleDeletePubCrawl(pubCrawl.id)}>Delete Pub Crawl</button>
+        <button className="edit-button" onClick={() => openEditModal(pubCrawl)}>Edit Pub Crawl</button>
       </li>
     ))}
   </ul>

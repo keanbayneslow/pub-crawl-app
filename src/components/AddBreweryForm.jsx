@@ -138,7 +138,7 @@ const AddBreweriesForm = ({ onBreweryAdded }) => {
                 <button className="edit-button" onClick={() => handleEdit(brewery)}>
                   Edit
                 </button>
-                <button className="delete-button" onClick={() => handleDelete(brewery.id)}>
+                <button className="edit-button" onClick={() => handleDelete(brewery.id)}>
                   Delete
                 </button>
               </li>

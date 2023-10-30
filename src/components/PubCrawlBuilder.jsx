@@ -16,7 +16,7 @@ const [pubCrawlData, setPubCrawlData] = useState({
   const [pubCrawls, setPubCrawls] = useState([]); // State to store pub crawls
   const [isEditModalOpen, setEditModalOpen] = useState(false); // State for edit modal
   const [editPubCrawl, setEditPubCrawl] = useState(null); // State to store the pub crawl being edited
-  const [selectedLeg, setSelectedLeg] = useState(null);
+  const [setSelectedLeg] = useState(null);
 
   useEffect(() => {
     // Fetch the list of breweries when the component mounts
@@ -155,10 +155,7 @@ const getBreweryNameById = (breweryId) => {
         console.error('Error editing pub crawl:', error);
       });
   };
-  const handleEditLeg = (pubCrawl, legIndex) => {
-    // Set the selected leg for editing
-    setSelectedLeg({ pubCrawl, legIndex });
-  };
+
   
   const handleDeleteLeg = (pubCrawl, legIndex) => {
     // Remove the selected leg from the pub crawl

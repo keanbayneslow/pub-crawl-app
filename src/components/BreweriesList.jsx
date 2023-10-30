@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/BreweriesList.css';
+import '../styles/Breweries.css';
 
 const BreweriesList = () => {
   const [breweries, setBreweries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('');
   const [favouriteBreweries, setFavouriteBreweries] = useState([]);
   const [addedToFavourites, setAddedToFavourites] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   const addBreweryToFavourites = (brewery) => {
     setFavouriteBreweries([...favouriteBreweries, brewery]);
@@ -28,6 +29,25 @@ const BreweriesList = () => {
         console.error('Error adding brewery:', error);
       });
   };
+
+  useEffect(() => {
+    console.log('Fetching data...');
+    fetch('https://pub-crawl-backend-g8ks.onrender.com/breweries')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setBreweries(data);
+        setIsLoading(false); // Set isLoading to false when data is fetched
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+        setIsLoading(false); // Set isLoading to false on error
+      });
+  }, []);
 
   const deleteBreweryFromFavourites = (breweryId) => {
     setFavouriteBreweries(favouriteBreweries.filter((brewery) => brewery.id !== breweryId));
@@ -86,6 +106,9 @@ const BreweriesList = () => {
           ))}
         </select>
       </label>
+      {isLoading ? (
+        <p>Loading...</p> 
+      ) : (
       <ul className="breweries">
         {filteredBreweries.map((brewery) => (
           <li
@@ -116,8 +139,9 @@ const BreweriesList = () => {
               </button>
             )}
           </li>
-        ))}
-      </ul>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

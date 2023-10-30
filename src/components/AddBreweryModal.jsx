@@ -53,7 +53,7 @@ function AddBreweryModal({ isModalOpen, setModalOpen, userAddedBreweries, setUse
       onRequestClose={() => setModalOpen(false)}
       contentLabel="Add Brewery Form"
     >
-      <h2>Add a Brewery</h2>
+      <h2 className="breweryModal">Add a Brewery</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"

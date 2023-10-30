@@ -46,7 +46,7 @@ return (
     onRequestClose={onRequestClose}
     contentLabel="Edit Brewery Form"
     >
-    <h2>Edit Brewery</h2>
+    <h2 className="breweryModal">Edit Brewery</h2>
     <form>
         <input
         type="text"

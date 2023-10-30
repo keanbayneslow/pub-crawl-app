@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AddBreweryModal from './AddBreweryModal';
 import EditBreweryModal from './EditBreweryModal';
-import '../styles/BreweriesList.css';
+import '../styles/Breweries.css';
 
 const AddBreweriesForm = ({ onBreweryAdded }) => {
   const [userAddedBreweries, setUserAddedBreweries] = useState([]);

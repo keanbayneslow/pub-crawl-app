@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/BreweriesList.css';
+import '../styles/Breweries.css';
 
 const Favourites = () => {
   const [favouriteBreweries, setFavouriteBreweries] = useState([]);

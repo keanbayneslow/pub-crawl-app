@@ -1,29 +1,35 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import SearchBar from './SearchBar';
-import '../styles/NavBar.css'
+import { NavLink } from 'react-router-dom'; // Import NavLink
+import '../styles/NavBar.css';
 
 function NavBar({ onSearch }) {
   return (
     <nav className="navbar">
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <NavLink exact to="/" activeClassName="active">
+            Home
+          </NavLink>
         </li>
         <li>
-          <Link to="/breweries">Breweries</Link>
+          <NavLink to="/breweries" activeClassName="active">
+            Breweries
+          </NavLink>
         </li>
         <li>
-          <Link to="/favourites">Favourites</Link>
+          <NavLink to="/favourites" activeClassName="active">
+            Favourites
+          </NavLink>
         </li>
         <li>
-          <Link to="/addbreweries">Add a Brewery</Link>
+          <NavLink to="/addbreweries" activeClassName="active">
+            Add a Brewery
+          </NavLink>
         </li>
         <li>
-          <Link to="/pubcrawlbuilder">Build a Pub Crawl</Link>
-        </li>
-        <li>
-          <SearchBar onSearch={onSearch} />
+          <NavLink to="/pubcrawlbuilder" activeClassName="active">
+            Build a Pub Crawl
+          </NavLink>
         </li>
       </ul>
     </nav>

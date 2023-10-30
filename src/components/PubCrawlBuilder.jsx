@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PubCrawlModal from './PubCrawlModal';
 import EditPubCrawlModal from './EditPubCrawlModal';
-import '../styles/BreweriesList.css';
+import '../styles/Breweries.css';
 
 const PubCrawlBuilder = () => {
 const [isModalOpen, setModalOpen] = useState(false);
@@ -195,7 +195,7 @@ const openEditModal = (pubCrawl) => {
 };
 
 return (
-    <div className='brewery-list'>
+    <div className='breweries-list'>
   <h1>Your Pub Crawls</h1>
   <button onClick={() => setModalOpen(true)}>Create New Pub Crawl</button>
   <ul className="breweries">

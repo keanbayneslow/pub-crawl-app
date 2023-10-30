@@ -1,17 +1,19 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
-import '../styles/landingPage.css';
+import '../styles/LandingPage.css';
 
 function LandingPage() {
   return (
     <div className="landing-page">
-  
-      <ReactPlayer
+  <ReactPlayer
         className="video-background"
         url="/assets/videos/beer.mp4"
         playing
         loop
         muted
+        width="100%"
+        height="100%"
+        style={{ objectFit: 'cover' }}
       />
       <div className="video-wrapper">
         <div className="content">

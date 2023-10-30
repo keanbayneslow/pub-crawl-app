@@ -35,14 +35,13 @@ const EditPubCrawlModal = ({ isOpen, onRequestClose, pubCrawl, onSaveEdit, onDel
   };
 
   const handleSaveEdit = () => {
-    // Pass the edited pub crawl data to the onSaveEdit function
     onSaveEdit(editedPubCrawl);
   };
 
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} contentLabel="Edit Pub Crawl">
-      <h2>Edit Pub Crawl</h2>
-      <label htmlFor="name">Name:</label>
+      <h2 className="pubCrawlModal">Edit Pub Crawl</h2>
+      <label className="pubCrawlModal" htmlFor="name">Name:</label>
       <input
         type="text"
         id="name"
@@ -50,7 +49,7 @@ const EditPubCrawlModal = ({ isOpen, onRequestClose, pubCrawl, onSaveEdit, onDel
         onChange={handleNameChange}
         placeholder="Enter a name for your Pub Crawl"
       />
-      <label htmlFor="description">Description:</label>
+      <label className="pubCrawlModal" htmlFor="description">Description:</label>
       <textarea
         id="description"
         value={editedPubCrawl.description}
@@ -60,7 +59,7 @@ const EditPubCrawlModal = ({ isOpen, onRequestClose, pubCrawl, onSaveEdit, onDel
       <h3>Legs:</h3>
       {editedPubCrawl.legs.map((leg, legIndex) => (
         <div key={legIndex}>
-          <label htmlFor={`leg${legIndex}`}>Leg {legIndex + 1}:</label>
+          <label className="pubCrawlModal" htmlFor={`leg${legIndex}`}>Leg {legIndex + 1}:</label>
           <select
             id={`leg${legIndex}`}
             value={leg.breweryId}

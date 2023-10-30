@@ -71,8 +71,8 @@ const handleSavePubCrawl = () => {
 
 return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} contentLabel="Pub Crawl Builder">
-    <h2>Create a Pub Crawl</h2>
-    <label htmlFor="name">Name:</label>
+    <h2 className="pubCrawlModal">Create a Pub Crawl</h2>
+    <label className="pubCrawlModal" htmlFor="name">Name:</label>
     <input
         type="text"
         id="name"
@@ -80,7 +80,7 @@ return (
         onChange={handleNameChange}
         placeholder="Enter a name for your Pub Crawl"
     />
-    <label htmlFor="description">Description:</label>
+    <label className="pubCrawlModal" htmlFor="description">Description:</label>
     <textarea
         id="description"
         value={pubCrawlData.description}
@@ -90,8 +90,8 @@ return (
 
     {pubCrawlData.legs.map((leg, index) => (
         <div key={index}>
-        <p>{leg.legName}</p>
-        <label>Select a Brewery:</label>
+        <p className="pubCrawlModal">{leg.legName}</p>
+        <label className="pubCrawlModal">Select a Brewery:</label>
         <select
             value={leg.breweryId}
             onChange={(e) => handleBrewerySelection(index, e.target.value)}

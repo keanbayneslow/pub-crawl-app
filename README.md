@@ -38,32 +38,36 @@ Navigate to the project directory:
 ```sh
 cd pub-crawl-app
 
+```
+
 Install the required dependencies:
 
 ```sh
 npm install
+```
 Start the development server:
 
 ```sh
 npm start
+```
 
 The app will be running on http://localhost:3000.
 
-Usage
+## Usage
 Visit http://localhost:3000 in your web browser to use the app.
 
 Follow the on-screen instructions to create, edit, or delete pub crawls and breweries.
 
 Explore the available features to manage and discover pub crawls and breweries.
 
-API Endpoints
+## API Endpoints
 The application uses the following API endpoints to interact with the backend:
 /breweries: Create, read, update, and delete breweries.
 /pubCrawl: Create, read, update, and delete pub crawls.
 
-The backend is deployed and accessible on https://pub-crawl-backend-g8ks.onrender.com
+### The backend is deployed and accessible on https://pub-crawl-backend-g8ks.onrender.com
 
-Contributing
+## Contributing
 Fork the project.
 Create a new branch for your feature or bug fix: git checkout -b feature/your-feature-name
 Commit your changes: git commit -m 'Add some feature'

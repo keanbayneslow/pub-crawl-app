@@ -107,7 +107,7 @@ const BreweriesList = () => {
         </select>
       </label>
       {isLoading ? (
-        <p>Loading...</p> 
+        <h2>Loading...</h2> 
       ) : (
       <ul className="breweries">
         {filteredBreweries.map((brewery) => (

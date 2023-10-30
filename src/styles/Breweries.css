@@ -97,7 +97,7 @@ h2 {
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: #000; /* You can change the color as needed */
+  color: #000; 
 }
 
 .breweryModal {
@@ -111,11 +111,13 @@ h2 {
 
 #name {
   width: 30%;
+  color: #000;
 }
 
 #description {
   width: 30%;
-  height: 60px
+  height: 60px; 
+  color: #000;
 }
 
 form {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
+import '../styles/Breweries.css';
 
 const EditPubCrawlModal = ({ isOpen, onRequestClose, pubCrawl, onSaveEdit, onDeletePubCrawl, onDeleteLeg, breweries, onBrewerySelection, }) => {
 

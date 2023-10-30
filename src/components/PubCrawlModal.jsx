@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
+import '../styles/Breweries.css';
 
 const PubCrawlModal = ({ isOpen, onRequestClose, onSavePubCrawl, breweries }) => {
 const [pubCrawlData, setPubCrawlData] = useState({
@@ -36,8 +37,8 @@ const handleBrewerySelection = (legIndex, breweryId) => {
 const handleSavePubCrawl = () => {
     // Create a new PubCrawl object with name, description, and legs
     const newPubCrawl = {
-    name: pubCrawlData.name, // Use the name from pubCrawlData
-    description: pubCrawlData.description, // Use the description from pubCrawlData
+      name: pubCrawlData.name, // Use the name from pubCrawlData
+      description: pubCrawlData.description, // Use the description from pubCrawlData
     legs: pubCrawlData.legs,
     };
 
@@ -63,6 +64,8 @@ const handleSavePubCrawl = () => {
         description: '',
         legs: [],
         });
+        // Refresh the page
+        window.location.reload();
     })
     .catch((error) => {
         console.error('Error saving pub crawl:', error);
@@ -74,9 +77,9 @@ return (
     <div className="modal-header">
     <h2 className="breweryModal">Add a Brewery</h2>
     <button className="exit-button" onClick={onRequestClose}>
-      X
+    X
     </button>
-  </div>
+</div>
     <label className="pubCrawlModal" htmlFor="name">Name:</label>
     <input
         type="text"

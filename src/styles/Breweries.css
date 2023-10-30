@@ -86,6 +86,20 @@ h2 {
   color: #fff;
 }
 
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.exit-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #000; /* You can change the color as needed */
+}
+
 .breweryModal {
   color: #000;
 }

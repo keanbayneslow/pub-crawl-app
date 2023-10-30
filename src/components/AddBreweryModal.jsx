@@ -53,7 +53,12 @@ function AddBreweryModal({ isModalOpen, setModalOpen, userAddedBreweries, setUse
       onRequestClose={() => setModalOpen(false)}
       contentLabel="Add Brewery Form"
     >
-      <h2 className="breweryModal">Add a Brewery</h2>
+      <div className="modal-header">
+    <h2 className="breweryModal">Add a Brewery</h2>
+    <button className="exit-button" onClick={() => setModalOpen(false)}>
+      X
+    </button>
+  </div>
       <form onSubmit={handleSubmit}>
         <input
           type="text"

@@ -40,7 +40,7 @@ const EditPubCrawlModal = ({ isOpen, onRequestClose, pubCrawl, onSaveEdit, onDel
   };
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={onRequestClose} contentLabel="Edit Pub Crawl">
+    <Modal className="pub-modal-content" isOpen={isOpen} onRequestClose={onRequestClose} contentLabel="Edit Pub Crawl">
       <div className="modal-header">
     <h2 className="breweryModal">Add a Brewery</h2>
     <button className="exit-button" onClick={onRequestClose}>

@@ -45,10 +45,10 @@ return (
     isOpen={isOpen}
     onRequestClose={onRequestClose}
     contentLabel="Edit Brewery Form"
+    className="custom-modal-content"
     >
      <div className="modal-header">
     <h2 className="breweryModal">Edit Brewery</h2>
-    <h2>Edit Brewery</h2>
     <button className="exit-button" onClick={onRequestClose}>
     X
   </button>

@@ -52,6 +52,7 @@ function AddBreweryModal({ isModalOpen, setModalOpen, userAddedBreweries, setUse
       isOpen={isModalOpen}
       onRequestClose={() => setModalOpen(false)}
       contentLabel="Add Brewery Form"
+      className="custom-modal-content"
     >
       <div className="modal-header">
     <h2 className="breweryModal">Add a Brewery</h2>

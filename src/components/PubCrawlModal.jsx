@@ -73,7 +73,7 @@ const handleSavePubCrawl = () => {
 };
 
 return (
-    <Modal isOpen={isOpen} onRequestClose={onRequestClose} contentLabel="Pub Crawl Builder">
+    <Modal className="pub-modal-content" isOpen={isOpen} onRequestClose={onRequestClose} contentLabel="Pub Crawl Builder">
     <div className="modal-header">
     <h2 className="breweryModal">Add a Brewery</h2>
     <button className="exit-button" onClick={onRequestClose}>

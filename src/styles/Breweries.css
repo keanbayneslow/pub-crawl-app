@@ -158,3 +158,17 @@ button:hover {
   background-color: #ff5900;
 }
 
+.custom-modal-content {
+  background-color: #999;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 5rem;  
+  }
+
+  .pub-modal-content {
+    background-color: #999;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem;  
+    }
+

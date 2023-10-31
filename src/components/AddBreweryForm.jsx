@@ -122,7 +122,7 @@ const AddBreweriesForm = ({ onBreweryAdded }) => {
   onRequestClose={() => setEditModalOpen(false)}
   brewery={breweryToEdit}
   onUpdateBrewery={handleUpdateBrewery}
-  refreshUserAddedBreweries={refreshUserAddedBreweries}
+  refreshParentComponent={refreshUserAddedBreweries}
 />
 
       <div className="added-breweries">

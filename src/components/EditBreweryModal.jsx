@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 
-function EditBreweryModal({ isOpen, onRequestClose, brewery, onUpdateBrewery }) {
-  const [breweryData, setBreweryData] = useState(brewery || {}); // Initialise with an empty object if brewery is null
+function EditBreweryModal({ isOpen, onRequestClose, brewery, onUpdateBrewery, refreshParentComponent }) {
+  const [breweryData, setBreweryData] = useState(brewery || {});
 
-const handleChange = (event) => {
+  const handleChange = (event) => {
     const { name, value } = event.target;
     setBreweryData({ ...breweryData, [name]: value });
-};
+  };
 
-const handleSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
@@ -32,7 +32,7 @@ const handleSubmit = async (event) => {
       // Close the modal
     onRequestClose();
 
-
+    refreshParentComponent();
 
     } catch (error) {
     console.error('Error updating brewery:', error);

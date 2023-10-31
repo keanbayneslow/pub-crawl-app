@@ -4,23 +4,26 @@ import EditPubCrawlModal from './EditPubCrawlModal';
 import '../styles/Breweries.css';
 
 const PubCrawlBuilder = () => {
-const [isModalOpen, setModalOpen] = useState(false);
-const [pubCrawlName, setPubCrawlName] = useState('');
-const [pubCrawlDescription, setPubCrawlDescription] = useState('');
-const [pubCrawlData, setPubCrawlData] = useState({
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [pubCrawlName, setPubCrawlName] = useState('');
+  const [pubCrawlDescription, setPubCrawlDescription] = useState('');
+  const [pubCrawlData, setPubCrawlData] = useState({
     name: '',
     description: '',
     legs: [],
-});
+  });
   const [breweries, setBreweries] = useState([]); // State to store breweries
   const [pubCrawls, setPubCrawls] = useState([]); // State to store pub crawls
-  const [isEditModalOpen, setEditModalOpen] = useState(false); // State for edit modal
+  const [isEditModalOpen, setEditModalOpen] = useState(false); // State for the edit modal
   const [editPubCrawl, setEditPubCrawl] = useState(null); // State to store the pub crawl being edited
   const [setSelectedLeg] = useState(null);
   const [refreshCrawls, setRefreshCrawls] = useState(false);
 
   const refreshParentComponent = () => {
-    setRefreshCrawls(true);
+    // Fetch the list of pub crawls immediately and then set the state
+    fetchPubCrawls().then(() => {
+      setRefreshCrawls(true);
+    });
   };
 
   useEffect(() => {
@@ -56,65 +59,30 @@ const [pubCrawlData, setPubCrawlData] = useState({
     }
   };
 
-  const handleSavePubCrawl = () => {
-    const newPubCrawl = {
-      name: pubCrawlName,
-      description: pubCrawlDescription,
-      legs: pubCrawlData.legs,
-    };
-
-    // Send a POST request to save the new pub crawl to your API
-    fetch('https://pub-crawl-backend-g8ks.onrender.com/pubCrawl', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newPubCrawl),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((savedPubCrawl) => {
-        setModalOpen(false);
-        setPubCrawlName('');
-        setPubCrawlDescription('');
-        setPubCrawlData({ legs: [] });
-
-        // Call the refreshParentComponent function
-        refreshParentComponent();
-      })
-      .catch((error) => {
-        console.error('Error saving pub crawl:', error);
-      });
-  };
-
-const handleAddLeg = () => {
+  const handleAddLeg = () => {
     // Add a new leg to the PubCrawl
     setPubCrawlData((prevData) => ({
-    legs: [
+      legs: [
         ...prevData.legs,
         {
-        legName: `Leg ${prevData.legs.length + 1}`,
-        breweryId: '', // Initialise as an empty string
+          legName: `Leg ${prevData.legs.length + 1}`,
+          breweryId: '', // Initialize as an empty string
         },
-    ],
+      ],
     }));
-};
+  };
 
-const handleBrewerySelection = (legIndex, breweryId) => {
+  const handleBrewerySelection = (legIndex, breweryId) => {
     setPubCrawlData((prevData) => {
-    const updatedLegs = [...prevData.legs];
-    updatedLegs[legIndex].breweryId = breweryId;
-    return {
+      const updatedLegs = [...prevData.legs];
+      updatedLegs[legIndex].breweryId = breweryId;
+      return {
         legs: updatedLegs,
-    };
+      };
     });
-};
+  };
 
-const getBreweryNameById = (breweryId) => {
+  const getBreweryNameById = (breweryId) => {
     const brewery = breweries.find((b) => b.id === breweryId);
     return brewery ? brewery.name : 'Brewery not found';
   };
@@ -158,15 +126,14 @@ const getBreweryNameById = (breweryId) => {
       .catch((error) => {
         console.error('Error editing pub crawl:', error);
       });
-      setRefreshCrawls(true);
+    setRefreshCrawls(true);
   };
 
-  
   const handleDeleteLeg = (pubCrawl, legIndex) => {
     // Remove the selected leg from the pub crawl
     const updatedPubCrawl = { ...pubCrawl };
     updatedPubCrawl.legs.splice(legIndex, 1);
-  
+
     // Send a PATCH request to update the pub crawl with the removed leg
     fetch(`https://pub-crawl-backend-g8ks.onrender.com/pubCrawl/${pubCrawl.id}`, {
       method: 'PATCH',
@@ -191,11 +158,10 @@ const getBreweryNameById = (breweryId) => {
       });
   };
 
-
-const openEditModal = (pubCrawl) => {
+  const openEditModal = (pubCrawl) => {
     setEditPubCrawl(pubCrawl);
     setEditModalOpen(true);
-};
+  };
 
 return (
     <div className='breweries-list'>

@@ -17,13 +17,18 @@ const [pubCrawlData, setPubCrawlData] = useState({
   const [isEditModalOpen, setEditModalOpen] = useState(false); // State for edit modal
   const [editPubCrawl, setEditPubCrawl] = useState(null); // State to store the pub crawl being edited
   const [setSelectedLeg] = useState(null);
+  const [refreshCrawls, setRefreshCrawls] = useState(false);
+
+  const refreshParentComponent = () => {
+    setRefreshCrawls(true);
+  };
 
   useEffect(() => {
     // Fetch the list of breweries when the component mounts
     fetchBreweries();
     // Fetch the list of pub crawls when the component mounts
     fetchPubCrawls();
-  }, []);
+  }, [refreshCrawls]);
 
   const fetchBreweries = async () => {
     try {
@@ -51,12 +56,11 @@ const [pubCrawlData, setPubCrawlData] = useState({
     }
   };
 
-const handleSavePubCrawl = () => {
-    // Create a new PubCrawl object with name, description, and legs
+  const handleSavePubCrawl = () => {
     const newPubCrawl = {
-    name: pubCrawlName,
-    description: pubCrawlDescription,
-    legs: pubCrawlData.legs,
+      name: pubCrawlName,
+      description: pubCrawlDescription,
+      legs: pubCrawlData.legs,
     };
 
     // Send a POST request to save the new pub crawl to your API
@@ -74,13 +78,13 @@ const handleSavePubCrawl = () => {
         return response.json();
       })
       .then((savedPubCrawl) => {
-        // Close the modal and reset form fields
         setModalOpen(false);
         setPubCrawlName('');
         setPubCrawlDescription('');
         setPubCrawlData({ legs: [] });
-        // Fetch the updated list of pub crawls
-        fetchPubCrawls();
+
+        // Call the refreshParentComponent function
+        refreshParentComponent();
       })
       .catch((error) => {
         console.error('Error saving pub crawl:', error);
@@ -154,6 +158,7 @@ const getBreweryNameById = (breweryId) => {
       .catch((error) => {
         console.error('Error editing pub crawl:', error);
       });
+      setRefreshCrawls(true);
   };
 
   
@@ -186,6 +191,7 @@ const getBreweryNameById = (breweryId) => {
       });
   };
 
+
 const openEditModal = (pubCrawl) => {
     setEditPubCrawl(pubCrawl);
     setEditModalOpen(true);
@@ -217,17 +223,17 @@ return (
 
   {isModalOpen && (
     <PubCrawlModal
-      isOpen={isModalOpen}
-      onRequestClose={() => setModalOpen(false)}
-      pubCrawlName={pubCrawlName}
-      setPubCrawlName={setPubCrawlName}
-      pubCrawlDescription={pubCrawlDescription}
-      setPubCrawlDescription={setPubCrawlDescription}
-      legs={pubCrawlData.legs}
-      onSavePubCrawl={handleSavePubCrawl}
-      breweries={breweries}
-      onAddLeg={handleAddLeg}
-      onBrewerySelection={handleBrewerySelection}
+    isOpen={isModalOpen}
+    onRequestClose={() => setModalOpen(false)}
+    pubCrawlName={pubCrawlName}
+    setPubCrawlName={setPubCrawlName}
+    pubCrawlDescription={pubCrawlDescription}
+    setPubCrawlDescription={setPubCrawlDescription}
+    legs={pubCrawlData.legs}
+    onSaveSuccess={refreshParentComponent}
+    breweries={breweries}
+    onAddLeg={handleAddLeg}
+    onBrewerySelection={handleBrewerySelection}
     />
   )}
   {isEditModalOpen && (

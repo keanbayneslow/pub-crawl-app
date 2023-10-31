@@ -32,7 +32,6 @@ const handleSubmit = async (event) => {
       // Close the modal
     onRequestClose();
 
-    window.location.reload();
 
 
     } catch (error) {
@@ -47,7 +46,7 @@ return (
     contentLabel="Edit Brewery Form"
     className="custom-modal-content"
     >
-     <div className="modal-header">
+    <div className="modal-header">
     <h2 className="breweryModal">Edit Brewery</h2>
     <button className="exit-button" onClick={onRequestClose}>
     X

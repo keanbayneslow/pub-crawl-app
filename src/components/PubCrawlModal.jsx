@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import '../styles/Breweries.css';
 
-const PubCrawlModal = ({ isOpen, onRequestClose, onSavePubCrawl, breweries }) => {
+const PubCrawlModal = ({ 
+    isOpen,
+    onRequestClose,
+    setPubCrawlName,
+    setPubCrawlDescription,
+    breweries,
+    onSaveSuccess }) => {
 const [pubCrawlData, setPubCrawlData] = useState({
     name: '',
     description: '',
@@ -34,6 +40,8 @@ const handleBrewerySelection = (legIndex, breweryId) => {
     setPubCrawlData({ ...pubCrawlData, legs: updatedLegs });
 };
 
+
+
 const handleSavePubCrawl = () => {
     // Create a new PubCrawl object with name, description, and legs
     const newPubCrawl = {
@@ -42,33 +50,41 @@ const handleSavePubCrawl = () => {
     legs: pubCrawlData.legs,
     };
 
+
     // Send a POST request to save the new pub crawl to your API
     fetch('https://pub-crawl-backend-g8ks.onrender.com/pubCrawl', {
     method: 'POST',
     headers: {
-        'Content-Type': 'application/json',
+    'Content-Type': 'application/json',
     },
     body: JSON.stringify(newPubCrawl),
-    })
+})
     .then((response) => {
-        if (!response.ok) {
+    if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
+    }
+    return response.json();
     })
     .then((savedPubCrawl) => {
-        // Close the modal by calling the `onRequestClose` function
-        onRequestClose();
-        setPubCrawlData({ // Reset the pubCrawlData state
+      // Close the modal by calling the `onRequestClose` function
+    onRequestClose();
+    
+      // Clear the form fields and reset the state
+    setPubCrawlName('');
+    setPubCrawlDescription('');
+    setPubCrawlData({
         name: '',
         description: '',
         legs: [],
-        });
-        // Refresh the page
-        window.location.reload();
+    });
+
+      // Call the `onSaveSuccess` function if needed
+      if (onSaveSuccess) {
+        onSaveSuccess(savedPubCrawl);
+    }
     })
     .catch((error) => {
-        console.error('Error saving pub crawl:', error);
+    console.error('Error saving pub crawl:', error);
     });
 };
 

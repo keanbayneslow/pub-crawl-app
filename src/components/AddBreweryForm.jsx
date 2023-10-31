@@ -12,6 +12,7 @@ const AddBreweriesForm = ({ onBreweryAdded }) => {
 
   useEffect(() => {
     fetchUserAddedBreweries();
+    refreshUserAddedBreweries();
   }, []);
 
   const fetchUserAddedBreweries = async () => {
@@ -30,6 +31,8 @@ const AddBreweriesForm = ({ onBreweryAdded }) => {
       setIsLoading(false);
     }
   };
+
+
 
   const handleEdit = (brewery) => {
     setBreweryToEdit(brewery);

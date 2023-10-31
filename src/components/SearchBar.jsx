@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react";
 
 const SearchBar = () => {
+  // State to store breweries and the search term
   const [breweries, setBreweries] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
+  // Use an effect to fetch breweries when the search term changes
   useEffect(() => {
     const fetchBreweries = async () => {
       try {
         if (searchTerm) {
+           // Send a GET request to fetch breweries matching the search term
           const response = await fetch(
             `https://pub-crawl-backend-g8ks.onrender.com//breweries?search=${searchTerm}`
           );
           if (response.ok) {
+            // If the response is successful, parse it as JSON
             const data = await response.json();
-            setBreweries(data);
+            setBreweries(data); // Update the breweries state with the search results
           }
         }
       } catch (error) {
@@ -21,6 +25,7 @@ const SearchBar = () => {
       }
     };
 
+    // Call the fetchBreweries function when the search term changes
     fetchBreweries();
   }, [searchTerm]);
 

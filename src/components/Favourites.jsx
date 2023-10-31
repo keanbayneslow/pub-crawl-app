@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import '../styles/Breweries.css';
 
 const Favourites = () => {
+  // State to store the favorite breweries
   const [favouriteBreweries, setFavouriteBreweries] = useState([]);
 
   useEffect(() => {
+    // Fetch favorite breweries when the component is mounted
     fetch('https://pub-crawl-backend-g8ks.onrender.com/favourites')
       .then((response) => {
         if (!response.ok) {
@@ -13,6 +15,7 @@ const Favourites = () => {
         return response.json();
       })
       .then((data) => {
+        // Set the favorite breweries when data is fetched successfully
         setFavouriteBreweries(data);
       })
       .catch((error) => {
@@ -20,6 +23,7 @@ const Favourites = () => {
       });
   }, []);
 
+  // Function to handle the deletion of a favorite brewery by ID
   const handleDelete = (id) => {
     // Send a DELETE request to remove the brewery with the specified ID
     fetch(`https://pub-crawl-backend-g8ks.onrender.com/favourites/${id}`, {
@@ -34,6 +38,7 @@ const Favourites = () => {
       })
       .then((response) => response.json())
       .then((data) => {
+        // Set the updated list of favorite breweries
         setFavouriteBreweries(data);
       })
       .catch((error) => {

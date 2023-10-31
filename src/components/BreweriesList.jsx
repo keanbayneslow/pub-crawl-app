@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import '../styles/Breweries.css';
 
 const BreweriesList = () => {
+  // State variables to manage data and loading status
   const [breweries, setBreweries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('');
   const [favouriteBreweries, setFavouriteBreweries] = useState([]);
   const [addedToFavourites, setAddedToFavourites] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
+  // Function to add a brewery to the user's favorites
   const addBreweryToFavourites = (brewery) => {
     setFavouriteBreweries([...favouriteBreweries, brewery]);
     setAddedToFavourites({ ...addedToFavourites, [brewery.id]: true });
@@ -30,6 +32,7 @@ const BreweriesList = () => {
       });
   };
 
+  // Fetch brewery data when the component mounts
   useEffect(() => {
     console.log('Fetching data...');
     fetch('https://pub-crawl-backend-g8ks.onrender.com/breweries')
@@ -49,6 +52,7 @@ const BreweriesList = () => {
       });
   }, []);
 
+  // Function to remove a brewery from favorites
   const deleteBreweryFromFavourites = (breweryId) => {
     setFavouriteBreweries(favouriteBreweries.filter((brewery) => brewery.id !== breweryId));
     setAddedToFavourites({ ...addedToFavourites, [breweryId]: false });
@@ -67,6 +71,7 @@ const BreweriesList = () => {
       });
   };
 
+  // Fetch the brewery data again when the component mounts
   useEffect(() => {
     console.log('Fetching data...');
     fetch('https://pub-crawl-backend-g8ks.onrender.com/breweries')
@@ -84,10 +89,12 @@ const BreweriesList = () => {
       });
   }, []);
 
+  // Function to handle country selection
   const handleCountryChange = (event) => {
     setSelectedCountry(event.target.value);
   };
 
+  // Filter breweries based on the selected country
   const filteredBreweries = selectedCountry
     ? breweries.filter((brewery) => brewery.country === selectedCountry)
     : breweries;

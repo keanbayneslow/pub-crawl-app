@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 
 function AddBreweryModal({ isModalOpen, setModalOpen, userAddedBreweries, setUserAddedBreweries }) {
+  // Initialise state variables to manage form input and submission
   const [breweryData, setBreweryData] = useState({
     name: '',
     brewery_type: '',
@@ -13,15 +14,18 @@ function AddBreweryModal({ isModalOpen, setModalOpen, userAddedBreweries, setUse
     isUserAdded: true,
   });
 
+  // Function to handle changes in the form input fields
   const handleChange = (event) => {
     const { name, value } = event.target;
+    // Update the state with the new input value
     setBreweryData({ ...breweryData, [name]: value });
   };
 
+  // Function to handle the form submission
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Add the brewery to /breweries
+    // Add the brewery to the /breweries API
     fetch('https://pub-crawl-backend-g8ks.onrender.com/breweries', {
       method: 'POST',
       headers: {
@@ -36,7 +40,7 @@ function AddBreweryModal({ isModalOpen, setModalOpen, userAddedBreweries, setUse
         return response.json();
       })
       .then((newBrewery) => {
-        // Add the new brewery to the userAddedBreweries state
+        // Add the newly created brewery to the userAddedBreweries state
         setUserAddedBreweries([...userAddedBreweries, newBrewery]);
 
         // Close the modal
@@ -55,12 +59,13 @@ function AddBreweryModal({ isModalOpen, setModalOpen, userAddedBreweries, setUse
       className="custom-modal-content"
     >
       <div className="modal-header">
-    <h2 className="breweryModal">Add a Brewery</h2>
-    <button className="exit-button" onClick={() => setModalOpen(false)}>
-      X
-    </button>
-  </div>
+        <h2 className="breweryModal">Add a Brewery</h2>
+        <button className="exit-button" onClick={() => setModalOpen(false)}>
+          X
+        </button>
+      </div>
       <form onSubmit={handleSubmit}>
+        {/* Input fields for brewery information */}
         <input
           type="text"
           name="name"

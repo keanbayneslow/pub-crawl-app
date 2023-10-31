@@ -4,9 +4,9 @@ import EditPubCrawlModal from './EditPubCrawlModal';
 import '../styles/Breweries.css';
 
 const PubCrawlBuilder = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [pubCrawlName, setPubCrawlName] = useState('');
-  const [pubCrawlDescription, setPubCrawlDescription] = useState('');
+  const [isModalOpen, setModalOpen] = useState(false); // State to manage the "Create New Pub Crawl" modal
+  const [pubCrawlName, setPubCrawlName] = useState(''); // State to store the pub crawl's name
+  const [pubCrawlDescription, setPubCrawlDescription] = useState(''); // State to store the pub crawl's description
   const [pubCrawlData, setPubCrawlData] = useState({
     name: '',
     description: '',
@@ -14,26 +14,27 @@ const PubCrawlBuilder = () => {
   });
   const [breweries, setBreweries] = useState([]); // State to store breweries
   const [pubCrawls, setPubCrawls] = useState([]); // State to store pub crawls
-  const [isEditModalOpen, setEditModalOpen] = useState(false); // State for the edit modal
+  const [isEditModalOpen, setEditModalOpen] = useState(false); // State for the "Edit Pub Crawl" modal
   const [editPubCrawl, setEditPubCrawl] = useState(null); // State to store the pub crawl being edited
   const [setSelectedLeg] = useState(null);
-  const [refreshCrawls, setRefreshCrawls] = useState(false);
+  const [refreshCrawls, setRefreshCrawls] = useState(false); // State to trigger refreshing the pub crawls list
 
+  // Function to refresh the list of pub crawls
   const refreshParentComponent = () => {
-    // Fetch the list of pub crawls immediately and then set the state
+    // Fetch the list of pub crawls immediately and then set the state to trigger a re-render
     fetchPubCrawls().then(() => {
       setRefreshCrawls(true);
     });
   };
 
   useEffect(() => {
-    // Fetch the list of breweries when the component mounts
+    // Fetch the list of breweries and pub crawls when the component mounts or when refreshCrawls state changes
     fetchBreweries();
-    // Fetch the list of pub crawls when the component mounts
     fetchPubCrawls();
   }, [refreshCrawls]);
 
   const fetchBreweries = async () => {
+    // Fetch the list of breweries from the server
     try {
       const response = await fetch('https://pub-crawl-backend-g8ks.onrender.com/breweries');
       if (!response.ok) {
@@ -47,6 +48,7 @@ const PubCrawlBuilder = () => {
   };
 
   const fetchPubCrawls = async () => {
+    // Fetch the list of pub crawls from the server
     try {
       const response = await fetch('https://pub-crawl-backend-g8ks.onrender.com/pubCrawl');
       if (!response.ok) {
@@ -66,13 +68,14 @@ const PubCrawlBuilder = () => {
         ...prevData.legs,
         {
           legName: `Leg ${prevData.legs.length + 1}`,
-          breweryId: '', // Initialize as an empty string
+          breweryId: '', // Initialise as an empty string
         },
       ],
     }));
   };
 
   const handleBrewerySelection = (legIndex, breweryId) => {
+    // Update the selected brewery for a specific leg
     setPubCrawlData((prevData) => {
       const updatedLegs = [...prevData.legs];
       updatedLegs[legIndex].breweryId = breweryId;
@@ -83,6 +86,7 @@ const PubCrawlBuilder = () => {
   };
 
   const getBreweryNameById = (breweryId) => {
+    // Get the name of a brewery by its ID
     const brewery = breweries.find((b) => b.id === breweryId);
     return brewery ? brewery.name : 'Brewery not found';
   };
@@ -121,7 +125,7 @@ const PubCrawlBuilder = () => {
         return fetchPubCrawls();
       })
       .then(() => {
-        setEditModalOpen(false);
+        setEditModalOpen(false); // Close the "Edit Pub Crawl" modal
       })
       .catch((error) => {
         console.error('Error editing pub crawl:', error);
@@ -130,7 +134,7 @@ const PubCrawlBuilder = () => {
   };
 
   const handleDeleteLeg = (pubCrawl, legIndex) => {
-    // Remove the selected leg from the pub crawl
+    // Delete a leg from a pub crawl
     const updatedPubCrawl = { ...pubCrawl };
     updatedPubCrawl.legs.splice(legIndex, 1);
 
@@ -159,6 +163,7 @@ const PubCrawlBuilder = () => {
   };
 
   const openEditModal = (pubCrawl) => {
+    // Open the "Edit Pub Crawl" modal with the selected pub crawl's data
     setEditPubCrawl(pubCrawl);
     setEditModalOpen(true);
   };

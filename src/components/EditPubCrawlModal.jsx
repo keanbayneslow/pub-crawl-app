@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import '../styles/Breweries.css';
 
 const EditPubCrawlModal = ({ isOpen, onRequestClose, pubCrawl, onSaveEdit, onDeletePubCrawl, onDeleteLeg, breweries, onBrewerySelection, }) => {
-
+// State to manage the editedPubCrawl
   const [editedPubCrawl, setEditedPubCrawl] = useState({ ...pubCrawl });
 
   // Ensure the editedPubCrawl is updated whenever the pubCrawl prop changes
@@ -11,14 +11,17 @@ const EditPubCrawlModal = ({ isOpen, onRequestClose, pubCrawl, onSaveEdit, onDel
     setEditedPubCrawl({ ...pubCrawl });
   }, [pubCrawl]);
 
+  // Function to handle changes in the name input
   const handleNameChange = (event) => {
     setEditedPubCrawl({ ...editedPubCrawl, name: event.target.value });
   };
 
+  // Function to handle changes in the description textarea
   const handleDescriptionChange = (event) => {
     setEditedPubCrawl({ ...editedPubCrawl, description: event.target.value });
   };
 
+  // Function to handle changes in the selected brewery for a leg
   const handleLegChange = (legIndex, breweryId) => {
     // Update the selected brewery for the given leg
     const updatedLegs = [...editedPubCrawl.legs];
@@ -26,6 +29,7 @@ const EditPubCrawlModal = ({ isOpen, onRequestClose, pubCrawl, onSaveEdit, onDel
     setEditedPubCrawl({ ...editedPubCrawl, legs: updatedLegs });
   };
 
+  // Function to add a new leg to the PubCrawl
   const handleAddLeg = () => {
     // Add a new leg to the PubCrawl
     const newLeg = {
@@ -35,6 +39,7 @@ const EditPubCrawlModal = ({ isOpen, onRequestClose, pubCrawl, onSaveEdit, onDel
     setEditedPubCrawl({ ...editedPubCrawl, legs: [...editedPubCrawl.legs, newLeg] });
   };
 
+  // Function to save the edited PubCrawl
   const handleSaveEdit = () => {
     onSaveEdit(editedPubCrawl);
   };

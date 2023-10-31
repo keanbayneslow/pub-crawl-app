@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 
 function EditBreweryModal({ isOpen, onRequestClose, brewery, onUpdateBrewery, refreshParentComponent }) {
+  // State to manage the brewery data
   const [breweryData, setBreweryData] = useState(brewery || {});
 
+  // Function to handle input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
     setBreweryData({ ...breweryData, [name]: value });
   };
 
+  // Function to handle form submission (updating the brewery)
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -32,6 +35,7 @@ function EditBreweryModal({ isOpen, onRequestClose, brewery, onUpdateBrewery, re
       // Close the modal
     onRequestClose();
 
+    // Refresh the parent component to reflect the changes
     refreshParentComponent();
 
     } catch (error) {

@@ -9,6 +9,7 @@ const PubCrawlModal = ({
     setPubCrawlDescription,
     breweries,
     onSaveSuccess }) => {
+        // Define state variables
 const [pubCrawlData, setPubCrawlData] = useState({
     name: '',
     description: '',
@@ -17,14 +18,17 @@ const [pubCrawlData, setPubCrawlData] = useState({
 
 const [currentLeg, setCurrentLeg] = useState(1);
 
+ // Event handler for changing the pub crawl name
 const handleNameChange = (event) => {
     setPubCrawlData({ ...pubCrawlData, name: event.target.value });
 };
 
+// Event handler for changing the pub crawl description
 const handleDescriptionChange = (event) => {
     setPubCrawlData({ ...pubCrawlData, description: event.target.value }); 
 };
 
+// Event handler to add a new leg to the pub crawl
 const handleAddLeg = () => {
     const newLeg = {
     legName: `Leg ${currentLeg}`,
@@ -34,14 +38,14 @@ const handleAddLeg = () => {
     setCurrentLeg(currentLeg + 1);
 };
 
+// Event handler for selecting a brewery for a specific leg
 const handleBrewerySelection = (legIndex, breweryId) => {
     const updatedLegs = [...pubCrawlData.legs];
     updatedLegs[legIndex].breweryId = breweryId;
     setPubCrawlData({ ...pubCrawlData, legs: updatedLegs });
 };
 
-
-
+// Event handler to save the pub crawl
 const handleSavePubCrawl = () => {
     // Create a new PubCrawl object with name, description, and legs
     const newPubCrawl = {
@@ -51,7 +55,7 @@ const handleSavePubCrawl = () => {
     };
 
 
-    // Send a POST request to save the new pub crawl to your API
+    // Send a POST request to save the new pub crawl to API
     fetch('https://pub-crawl-backend-g8ks.onrender.com/pubCrawl', {
     method: 'POST',
     headers: {
